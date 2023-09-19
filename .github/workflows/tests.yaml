@@ -1,0 +1,17 @@
+name: Run tests
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  tests:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Run tests
+        run: echo "Here will be tests"
