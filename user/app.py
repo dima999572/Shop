@@ -15,6 +15,7 @@ import os
 db_relative_path = os.path.join(os.getcwd(), 'database', 'user.db')
 print(db_relative_path)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_relative_path}'
+
 models.init_app(app)
 app.register_blueprint(user_blueprint)
 

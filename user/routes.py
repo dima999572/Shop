@@ -22,7 +22,7 @@ def get_all_users():
 def create_user():
     try:
         user = User()
-        user.username = request.form["username"]
+        user.username = request.form['username']
         user.password = generate_password_hash(request.form['password'], method='sha256')
         user.is_admin = True
         db.session.add(user)
@@ -66,7 +66,7 @@ def login():
     }), 401)
 
 
-@user_blueprint.route("/logout", methods=['POST'])
+@user_blueprint.route('/logout', methods=['POST'])
 def logout():
     if current_user.is_authenticated:
         logout_user()
