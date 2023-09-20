@@ -42,4 +42,12 @@ def create_books():
 
 @book_blueprint.route('/<slug>', methods=['GET'])
 def book_details(slug):
-    return f'book details {slug}'
+    book = Book.query.filter_by(slug=slug).first()
+    if book:
+        return make_response(jsonify({
+            'result': book.serialize()
+        }), 200)
+    else:
+        return make_response(jsonify({
+            'result': 'No books found'
+        }), 404)
