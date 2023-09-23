@@ -15,7 +15,7 @@ def init_app(app):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True)
-    password  = db.Column(db.String(255))
+    password = db.Column(db.String(255))
     is_admin = db.Column(db.Boolean)
     api_key = db.Column(db.String(255), unique=True, nullable=True)
     is_active = db.Column(db.Boolean, default=True)
@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f'<user {self.id} {self.username}>'
-
+    
 
     def serialize(self):
         return {
@@ -41,5 +41,5 @@ class User(db.Model, UserMixin):
         print(self.api_key)
 
     
-    def get(user_id):
-        return User.query.get(int(user_id))
+    # def get(user_id):
+    #     return User.query.get(int(user_id))

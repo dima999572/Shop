@@ -10,8 +10,8 @@ user_blueprint = Blueprint('user_api_routes', __name__, url_prefix='/api/user/')
 
 @user_blueprint.route('/all', methods=['GET'])
 def get_all_users():
-    all_users = User.query.all()
-    result = [user.serialize() for user in all_users]
+    all_user = User.query.all()
+    result = [user.serialize() for user in all_user]
     return make_response(jsonify({
         'message': 'Returning all users',
         'response': result
@@ -34,7 +34,7 @@ def create_user():
         }
 
     except Exception as e:
-        print(e)
+        print(str(e))
         response = {
             'message': 'Error in creating response'
         }
@@ -42,7 +42,7 @@ def create_user():
     return jsonify(response)
 
 
-@user_blueprint.route('login', methods=['POST'])
+@user_blueprint.route('/login', methods=['POST'])
 def login():
     username = request.form['username']
     password = request.form['password']
@@ -94,6 +94,7 @@ def user_exist(username):
 
 @user_blueprint.route('/', methods=['GET'])
 def get_current_user():
+    print(current_user.is_authenticated)
     if current_user.is_authenticated:
         return make_response(jsonify({
             'result': current_user.serialize()
