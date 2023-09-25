@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_migrate import Migrate 
 
+import models
 from routes import book_blueprint
-from models import db, init_app
 
 
 app = Flask(__name__)
@@ -13,10 +13,10 @@ db_relative_path = os.path.join(os.getcwd(), 'database', 'user.db')
 print(db_relative_path)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_relative_path}'
 
+models.init_app(app)
 app.register_blueprint(book_blueprint)
-init_app(app)
 
-migrate = Migrate(app, db)
+migrate = Migrate(app, models.db)
 
 
 if __name__ == '__main__':

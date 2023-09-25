@@ -1,6 +1,6 @@
 from flask import Flask
-from flask.sessions import SecureCookieSessionInterface
 from flask_migrate import Migrate
+from flask.sessions import SecureCookieSessionInterface
 from flask_login import LoginManager
 from datetime import timedelta
 
@@ -32,7 +32,6 @@ def load_user(user_id):
 @login_manager.request_loader
 def load_user_from_request(request):
     api_key = request.headers.get('Authorization')
-    print(f"api_key(request_loader): {api_key}")
     if api_key:
         api_key = api_key.replace('Basic ', '', 1)
         user = models.User.query.filter_by(api_key=api_key).first()

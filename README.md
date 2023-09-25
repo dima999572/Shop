@@ -4,6 +4,7 @@
 
 - open terminal
 - go to microservice
+- `mkdir database`
 - `flask db init`
 - `flask db migrate`
 - `flask db upgrade`
