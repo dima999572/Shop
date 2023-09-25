@@ -13,10 +13,7 @@ def get_user(api_key):
     headers = {
         'Authorization': api_key
     }
-    print(f"Header in get_user: {headers}")
-    response = requests.get(USER_API_URL, headers)
-    print(response.status_code)
-    print(f"response[requests.get(USER_API_URL - {USER_API_URL}, {headers})]: {response}")
+    response = requests.get(USER_API_URL, headers=headers)
 
     if response.status_code != 200:
         return {'message': 'Not Authorized'}

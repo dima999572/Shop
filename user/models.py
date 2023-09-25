@@ -38,8 +38,3 @@ class User(db.Model, UserMixin):
 
     def update_api_key(self):
         self.api_key = generate_password_hash(f"{self.username}{datetime.utcnow}")
-        print(self.api_key)
-
-    
-    # def get(user_id):
-    #     return User.query.get(int(user_id))

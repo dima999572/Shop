@@ -32,4 +32,3 @@ class Book(db.Model, UserMixin):
             'amount': self.amount,
             'image': self.image
         }
- 
