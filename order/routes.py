@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response
 import requests
 
-from models import Order, OrderItem, db
+from .models import Order, OrderItem, db
 
 
 order_blueprint = Blueprint('order_api_routes', __name__, url_prefix='/api/order')

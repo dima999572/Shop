@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify, make_response
 from flask_login import current_user, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from models import db, User
+from .models import db, User
 
 
 user_blueprint = Blueprint('user_api_routes', __name__, url_prefix='/api/user/')

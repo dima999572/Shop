@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_migrate import Migrate
 
-from routes import order_blueprint
-from models import db, init_app
+from .routes import order_blueprint
+from .models import db, init_app
 
 
 app = Flask(__name__)
