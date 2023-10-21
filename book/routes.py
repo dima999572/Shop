@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, make_response
 
-from .models import db, Book
+from models import db, Book
 
 
 book_blueprint = Blueprint('book_api_routes', __name__, url_prefix='/api/book/')

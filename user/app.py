@@ -4,8 +4,8 @@ from flask.sessions import SecureCookieSessionInterface
 from flask_login import LoginManager
 from datetime import timedelta
 
-from .models import init_app, db, User
-from .routes import user_blueprint
+from models import init_app, db, User
+from routes import user_blueprint
 
 
 app = Flask(__name__)
