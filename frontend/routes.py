@@ -27,7 +27,7 @@ def register():
             username = form.username.data
             if UserClient.user_exists(username):
                 flash("Please try another user name")
-                return render_template('register.html', forms=form)
+                return render_template('register.html', form=form)
             else:
                 user = UserClient.create_user(form)
                 if user:
