@@ -96,8 +96,44 @@ def book_details(slug):
             return redirect(url_for('frontend.login'))
         
         order = OrderClient.add_to_card(book_id=book['id'], quantity=1)
-        print(order['result'])
         session['order'] = order['result']
         flash('Book added to the card')
 
     return render_template('book_info.html', book=book, form=form)
+
+
+@blueprint.route('/checkout', methods=['GET'])
+def checkout():
+    if 'user' not in session:
+        flash('Please login')
+        return redirect(url_for('frontend.login'))
+    
+    if 'order' not in session:
+        flash('Please add some books to the cart')
+        return redirect(url_for('frontend.index'))
+    
+    order = OrderClient.get_orders()
+
+    if len(order['response']['order_items']) == 0:
+        flash('Please add some books to the cart')
+        return redirect(url_for('frontend.index'))
+     
+    OrderClient.checkout()
+
+    return redirect(url_for('frontend.thank_you'))
+
+
+@blueprint.route('/thank-you', methods=['GET'])
+def thank_you():
+    if 'user' not in session:
+        flash('Please login')
+        return redirect(url_for('frontend.login'))
+    
+    if 'order' not in session:
+        flash('Please add some books to the cart')
+        return redirect(url_for('frontend.index'))
+    
+    session.pop('order', None)
+    flash('Your order is proccessing.')
+
+    return render_template('thankyou.html')
