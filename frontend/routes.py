@@ -8,6 +8,17 @@ from api.order_client import OrderClient
 blueprint = Blueprint('frontend', __name__)
 
 
+@blueprint.context_processor
+def cart_count():
+    count = 0
+    order = session.get('order')
+    if order:
+        for item in order.get('order_items'):
+            count += item['quantity']
+
+    return {'cart_items': count}
+
+
 @blueprint.route('/', methods=['GET'])
 def index():
     if current_user.is_authenticated:
@@ -50,6 +61,11 @@ def login():
                 user = UserClient.get_user()
                 session['user'] = user['result']
 
+                order = OrderClient.get_orders()
+                print(f"------------------ORDER: {order}")
+                if order.get('response'):
+                    session['order'] = order['response']
+
                 flash('Welcome back')
                 return redirect(url_for('frontend.index'))
             else:
@@ -80,7 +96,8 @@ def book_details(slug):
             return redirect(url_for('frontend.login'))
         
         order = OrderClient.add_to_card(book_id=book['id'], quantity=1)
-        session['session'] = order['result']
+        print(order['result'])
+        session['order'] = order['result']
         flash('Book added to the card')
 
     return render_template('book_info.html', book=book, form=form)

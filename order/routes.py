@@ -34,7 +34,7 @@ def get_open_order():
     if not user:
         return make_response(jsonify({'message': 'Not logged in'}), 401)
     
-    open_order = Order.query.fileter_by(user_id=user['id'], is_open=1).first()
+    open_order = Order.query.filter_by(user_id=user['id'], is_open=1).first()
     if open_order:
         return make_response(jsonify({
             'message': 'Returning openg order',

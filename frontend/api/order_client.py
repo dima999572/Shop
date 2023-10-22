@@ -29,7 +29,7 @@ class OrderClient():
         url = f'{ORDER_API_URL}/api/order/add-item'
 
         response = requests.post(url, data=payload, headers=header)
-        return response.json
+        return response.json()
     
 
     @staticmethod
