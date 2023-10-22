@@ -50,7 +50,7 @@ class UserClient:
 
     @staticmethod
     def user_exists(username):
-        url = USER_API_URL + f'/api/{username}/exists'
+        url = USER_API_URL + f'/api/user/{username}/exists'
 
         response = requests.get(url)
         
