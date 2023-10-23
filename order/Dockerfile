@@ -1,7 +1,7 @@
 FROM python:3.11.5
-COPY requirements.txt /bookapp/requirements.txt
-WORKDIR /bookapp
+COPY requirements.txt /userapp/requirements.txt
+WORKDIR /userapp
 RUN pip install -r requirements.txt
-COPY . /bookapp
+COPY . /userapp
 ENTRYPOINT [ "python" ]
 CMD [ "app.py" ]
