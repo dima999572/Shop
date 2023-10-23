@@ -5,3 +5,4 @@ RUN pip install -r requirements.txt
 COPY . /frontendapp
 ENTRYPOINT [ "python" ]
 CMD [ "app.py" ]
+EXPOSE 5000
