@@ -16,8 +16,8 @@ Apply the ConfigMap and Secret for PostgreSQL:
 
 ```bash
   kubectl apply -f postgres-configmap.yaml
-    kubectl apply -f postgres-secret.yaml
-    ```
+  kubectl apply -f postgres-secret.yaml
+  ```
 
 ### Service 
 
