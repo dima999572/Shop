@@ -37,17 +37,17 @@ spec:
         env:
         - name: PGDATA
           value: "/data/pgdata"
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: postgresql
-              key: POSTGRES_USER
-              optional: false
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: postgresql
               key: POSTGRES_PASSWORD
+              optional: false
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgresql
+              key: POSTGRES_USER
               optional: false
         - name: POSTGRES_DB
           valueFrom:
