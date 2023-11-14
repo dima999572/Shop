@@ -1,16 +1,11 @@
 # Shop
 
-## How to initialize the Database
+## How run app
 
-- open terminal
-- go to microservice
-- `mkdir database`
-- `flask db init`
-- `flask db migrate`
-- `flask db upgrade`
+Navigate to the 'frontend/' directory and write the following:
+```bash
+  docker compose up
+  ```
 
-## Ports
+Done!
 
-- port 5000 - front-end
-- port 5001 - user service
-- port 5002 - book service

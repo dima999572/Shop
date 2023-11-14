@@ -67,6 +67,8 @@ db.sqlite3-journal
 
 # Flask stuff:
 instance/
+database/
+migrations/
 .webassets-cache
 
 # Scrapy stuff:
@@ -180,6 +182,9 @@ pyrightconfig.json
 # .tfstate files
 *.tfstate
 *.tfstate.*
+
+# .terraform.lock.hcl file
+.terraform.lock.hcl
 
 # Crash log files
 crash.log
