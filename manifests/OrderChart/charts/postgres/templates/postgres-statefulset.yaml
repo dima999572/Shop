@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-statefulset
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: postgres-app
+  serviceName: postgres-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres-app
+    spec:
+      terminationGracePeriodSeconds: 30
+      initContainers:
+      - name: init-container
+        image: postgres:16.0
+        command: [ "bash", "-c" ]
+        args:
+        - |
+          # Initialize archive directory
+          mkdir -p /data/archive && chown -R 999:999 /data/archive
+        volumeMounts:
+        - name: data-volume
+          mountPath: /data
+          readOnly: false
+      containers:
+      - name: postgres-container
+        image: postgres:16.0
+        args: [ "-c", "config_file=/config/postgresql.conf" ]
+        ports:
+        - containerPort: 5432
+          name: postgres-port
+        env:
+        - name: PGDATA
+          value: "/data/pgdata"
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: POSTGRES_PASSWORD
+              optional: false
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: POSTGRES_USER
+              optional: false
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: POSTGRES_DB
+              optional: false
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+          readOnly: false
+        - name: data-volume
+          mountPath: /data
+          readOnly: false
+      volumes:
+      - name: config-volume
+        configMap:
+          name: postgres-conf
+          defaultMode: 0755
+  volumeClaimTemplates:
+  - metadata:
+      name: data-volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "standard"
+      resources:
+        requests:
+          storage: 100Mi
+

@@ -1,16 +1,18 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres
-  namespace: postgresql
+  name: postgres-conf
+  namespace: {{ .Values.namespace }}
 data:
   pg_hba.conf: |+
     # TYPE  DATABASE        USER            ADDRESS                 METHOD
     host     replication     replicationuser         0.0.0.0/0        md5
     # "local" is for Unix domain socket connections only
-    local   all             all             0.0.0.0/0               trust
+    local   all             all                                     trust
     # IPv4 local connections:
-    host    all             all             0.0.0.0/0               trust
+    host    all             all             127.0.0.1/32            trust
+    # IPv4 10.x.x.x connections:
+    host    all             all             10.244.0.0/16           trust
     # IPv6 local connections:
     host    all             all             ::1/128                 trust
     # Allow replication connections from localhost, by a user with the
@@ -36,16 +38,17 @@ data:
     datestyle = 'iso, ymd'
     timezone = 'Etc/UTC+1'
 
-    # locale settings
-    lc_messages = 'en_US.utf8'     # locale for system error message
-    lc_monetary = 'en_US.utf8'     # locale for monetary formatting
-    lc_numeric = 'en_US.utf8'      # locale for number formatting
-    lc_time = 'en_US.utf8'       # locale for time formatting
+    # Locale settings
+    lc_messages = 'en_US.utf8'     # Locale for system error message
+    lc_monetary = 'en_US.utf8'     # Locale for monetary formatting
+    lc_numeric = 'en_US.utf8'      # Locale for number formatting
+    lc_time = 'en_US.utf8'         # Locale for time formatting
     
     default_text_search_config = 'pg_catalog.english'
     
-    # replication
+    # Replication settings
     wal_level = replica
     archive_mode = on
     archive_command = 'test ! -f /data/archive/%f && cp %p /data/archive/%f'
-    max_wal_senders = 3  
+    max_wal_senders = 3
+

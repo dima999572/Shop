@@ -5,14 +5,17 @@ from . import BOOK_API_URL
 class BookClient():
     @staticmethod
     def get_all_books():
-        url = BOOK_API_URL + '/api/book/all' 
-        return requests.get(url).json()
+        url = f'{BOOK_API_URL}/api/book/all' 
+	response = request.get(url)        
+
+	if response:
+	    books = response.json()
+	return books
 
 
     @staticmethod
     def book_details(slug):
         url = f'{BOOK_API_URL}/api/book/{slug}'
-
         response = requests.get(url)
  
         if response:

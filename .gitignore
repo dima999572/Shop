@@ -1,5 +1,9 @@
-# Created by https://www.toptal.com/developers/gitignore/api/python,terraform
-# Edit at https://www.toptal.com/developers/gitignore?templates=python,terraform
+# Created by https://www.toptal.com/developers/gitignore/api/terraform,helm,python
+# Edit at https://www.toptal.com/developers/gitignore?templates=terraform,helm,python
+
+### Helm ###
+# Chart dependencies
+**/charts/*.tgz
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -67,8 +71,6 @@ db.sqlite3-journal
 
 # Flask stuff:
 instance/
-database/
-migrations/
 .webassets-cache
 
 # Scrapy stuff:
@@ -183,9 +185,6 @@ pyrightconfig.json
 *.tfstate
 *.tfstate.*
 
-# .terraform.lock.hcl file
-.terraform.lock.hcl
-
 # Crash log files
 crash.log
 crash.*.log
@@ -214,5 +213,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-# End of https://www.toptal.com/developers/gitignore/api/python,terraform
+# End of https://www.toptal.com/developers/gitignore/api/terraform,helm,python
 

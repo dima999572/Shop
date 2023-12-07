@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: order-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-api
+  template:
+    metadata:
+      labels:
+        app: order-api
+    spec:
+      initContainers:
+        - name: wait-postgres
+          image: alpine:3.18
+          command: [ "/bin/sh", "-c" ]
+          args:
+          - |
+            start_time=$(date +%s)
+            for i in $(seq 1 200); do
+              nc -z -w3 postgres-service 5432 && end_time=$(date +%s) && duration=$((end_time  - start_time)) && echo "PostgreSQL service is available after ${duration} seconds" && exit 0 || sleep 2
+            done
+            exit 1
+        - name: db-migrate
+          image: dima999572/frontend-order-service
+          command: 
+            - "/bin/bash"
+            - "-c"
+            - |
+              # Check if the migration has already been done
+              if [ -f "data/migration" ]; then
+                echo "Migration has already been done. Skipping migration."
+                exit 0
+              fi
+          
+              # Proceed with migration
+              echo "Running flask db init"
+              flask db init
+              echo "Running flask db migrate"
+              flask db migrate
+              echo "Running flask db upgrade"
+              flask db upgrade
+      containers:
+        - name: order-api
+          image: dima999572/frontend-order-service
+          ports:
+            - containerPort: 5003

@@ -24,7 +24,7 @@ Apply the ConfigMap and Secret for PostgreSQL:
 Apply the Service for PostgreSQL:
 
 ```bash
-  kubect apply -f postgres-secret.yaml
+  kubect apply -f postgres-service.yaml
   ```
 
 ### StatefulSet

@@ -1,11 +1,22 @@
 from flask import Blueprint, request, jsonify, make_response
 from flask_login import current_user, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
-
 from models import db, User
 
 
 user_blueprint = Blueprint('user_api_routes', __name__, url_prefix='/api/user/')
+
+
+@user_blueprint.route('/', methods=['GET'])
+def get_current_user():
+    if current_user.is_authenticated:
+        return make_response(jsonify({
+            'result': current_user.serialize()
+        }), 200)
+    else:
+        return make_response(jsonify({
+            'message': 'User not logged in'
+        }), 401)
 
 
 @user_blueprint.route('/all', methods=['GET'])
@@ -35,7 +46,7 @@ def create_user():
 
     except Exception as e:
         response = {
-            'message': f'Error in creating response: {e}'
+            'message': f'Error in creating user: {e}'
         }
 
     return jsonify(response)
@@ -89,15 +100,3 @@ def user_exist(username):
         return make_response(jsonify({
             'result': False
         }), 404)
-
-
-@user_blueprint.route('/', methods=['GET'])
-def get_current_user():
-    if current_user.is_authenticated:
-        return make_response(jsonify({
-            'result': current_user.serialize()
-        }), 200)
-    else:
-        return make_response(jsonify({
-            'message': 'User not logged in'
-        }), 401)

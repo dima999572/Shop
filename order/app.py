@@ -1,17 +1,13 @@
 from flask import Flask
 from flask_migrate import Migrate
-
-from routes import order_blueprint
 from models import db, init_app
+from routes import order_blueprint
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dima999572'
-# TODO: Find a good way of reference to db using relative path, not absolute path (earlier relative path did not work)
-import os
-db_relative_path = os.path.join(os.getcwd(), 'database', 'order.db')
-print(db_relative_path)
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_relative_path}'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgresadmin:admin123@postgres-service:5432/postgresdb'
 
 init_app(app)
 app.register_blueprint(order_blueprint)

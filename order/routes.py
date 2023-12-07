@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify, make_response
 import requests
-
-from models import Order, OrderItem, db
+from models import db, Order, OrderItem
 
 
 order_blueprint = Blueprint('order_api_routes', __name__, url_prefix='/api/order')
@@ -37,7 +36,7 @@ def get_open_order():
     open_order = Order.query.filter_by(user_id=user['id'], is_open=1).first()
     if open_order:
         return make_response(jsonify({
-            'message': 'Returning openg order',
+            'message': 'Returning open order',
             'response': open_order.serialize()
         }), 200)
     else:
@@ -86,9 +85,9 @@ def add_order_item():
                 item.quantity += quantity
                 found = True
 
-            if not found:
-                order_item = OrderItem(book_id=book_id, quantity=quantity)
-                open_order.order_items.append(order_item)
+        if not found:
+            order_item = OrderItem(book_id=book_id, quantity=quantity)
+            open_order.order_items.append(order_item)
 
     db.session.add(open_order)
     db.session.commit()

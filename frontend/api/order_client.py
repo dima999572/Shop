@@ -49,4 +49,5 @@ class OrderClient():
         default_order = {
             'items': {}
         }
+
         return session.get('order', default_order)

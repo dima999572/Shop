@@ -1,0 +1,10 @@
+# Exclude the virtual environment
+.venv/
+
+# Exclude Python cache directories
+__pycache__/
+
+# Exclude database directories
+database/
+
+cdsfasf/

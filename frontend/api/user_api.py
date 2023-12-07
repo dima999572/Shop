@@ -12,12 +12,11 @@ class UserClient:
             'password': form.password.data
         }
 
-        url = USER_API_URL + '/api/user/login'
+        url = f'{USER_API_URL}/api/user/login'
 
         response = requests.post(url, data=payload)
         if response:
             api_key = response.json().get('api_key')
-
         return api_key
     
 
@@ -27,10 +26,10 @@ class UserClient:
             'Authorization': session['user_api_key']
         }
 
-        url = USER_API_URL + '/api/user'
+        url = f'{USER_API_URL}/api/user'
 
         response = requests.get(url, headers=headers)
-        return response.json()
+	return response.json()
     
 
     @staticmethod
@@ -40,12 +39,12 @@ class UserClient:
             'password': form.password.data
         }
         
-        url = USER_API_URL + '/api/user/create'
+        url = f'{USER_API_URL}/api/user/create'
 
         response = requests.post(url, data=payload)
         if response:
             user = response.json()
-        return user
+	return user
     
 
     @staticmethod
@@ -53,6 +52,5 @@ class UserClient:
         url = USER_API_URL + f'/api/user/{username}/exists'
 
         response = requests.get(url)
-        
         return response.status_code == 200
 

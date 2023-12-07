@@ -3,7 +3,6 @@ from flask_migrate import Migrate
 from flask.sessions import SecureCookieSessionInterface
 from flask_login import LoginManager
 from datetime import timedelta
-
 from models import init_app, db, User
 from routes import user_blueprint
 
@@ -11,11 +10,8 @@ from routes import user_blueprint
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dima999572'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
-# TODO: Find a good way of reference to db using relative path, not absolute path (earlier relative path did not work)
-import os
-db_relative_path = os.path.join(os.getcwd(), 'database', 'user.db')
-print(db_relative_path)
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_relative_path}'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgresadmin:admin123@postgres-service:5432/postgresdb'
 
 init_app(app)
 app.register_blueprint(user_blueprint)
@@ -51,4 +47,4 @@ class CustomSessionInterface(SecureCookieSessionInterface):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)   
+    app.run(host='0.0.0.0', port=5001)

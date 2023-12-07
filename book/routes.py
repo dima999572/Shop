@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify, make_response
-
 from models import db, Book
 
 
@@ -34,7 +33,7 @@ def create_books():
         }
     except Exception as e:
         response = {
-            'message': f'Error in creating book. {e}'
+            'message': f'Error in creating book: {e}'
         }
 
     return jsonify(response)
