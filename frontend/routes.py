@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, redirect, request, flash, url_for
+from flask import Blueprint, render_template, session, redirect, request, flash, url_for, make_response, jsonify
 from flask_login import current_user
 from api.book_client import BookClient
 from api.user_api import UserClient
@@ -80,8 +80,7 @@ def login():
 def logout():
     session.clear()
     flash('Logged out')
-    return redirect(url_for('frontend.index'))
-
+    return redirect(url_for('frontend.login')) 
 
 @blueprint.route('/book/<slug>', methods=['GET', 'POST'])
 def book_details(slug):
