@@ -1,1 +1,10 @@
-namespace: "book-postgres"
+namespace: "book-app"
+
+image:
+  repository: "dima999572/frontend-book-service"
+  tags: "latest"
+
+ports:
+  containerPort: 5002
+  port: 5002
+  targetPort: 5002

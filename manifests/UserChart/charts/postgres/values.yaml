@@ -1,9 +1,6 @@
-namespace: "user-postgres"
+namespace: "user-app"
 
-image:
-  tag: "16.0"
-
-service:
+ports:
   port: "5432"
   targetPort: "5432"
 

@@ -1,19 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-deployment
+  name: book-deployment
   namespace: {{ .Values.namespace }}
-  labels:
-    app: user-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: user-api
+      app: book-api
   template:
     metadata:
       labels:
-        app: user-api
+        app: book-api
     spec:
       initContainers:
         - name: wait-postgres
@@ -27,7 +25,7 @@ spec:
             done
             exit 1
         - name: db-migrate
-          image: dima999572/frontend-user-service
+          image: {{ .Values.image.repository }}
           command: 
             - "/bin/bash"
             - "-c"
@@ -46,7 +44,7 @@ spec:
               echo "Running flask db upgrade"
               flask db upgrade
       containers:
-        - name: user-api
-          image: dima999572/frontend-user-service
+        - name: book-api
+          image: {{ .Values.image.repository }}
           ports:
-            - containerPort: 5001
+            - containerPort: {{ .Values.ports.containerPort }}

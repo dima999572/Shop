@@ -5,7 +5,7 @@ from models import db, Order, OrderItem
 
 order_blueprint = Blueprint('order_api_routes', __name__, url_prefix='/api/order')
 
-USER_API_URL = 'http://user-service-c:5001/api/user'
+USER_API_URL = 'http://user-service.user-app:5001/api/user'
 
 
 def get_user(api_key):
@@ -33,7 +33,7 @@ def get_open_order():
     if not user:
         return make_response(jsonify({'message': 'Not logged in'}), 401)
     
-    open_order = Order.query.filter_by(user_id=user['id'], is_open=1).first()
+    open_order = Order.query.filter_by(user_id=user['id'], is_open=True).first()
     if open_order:
         return make_response(jsonify({
             'message': 'Returning open order',

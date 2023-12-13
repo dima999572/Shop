@@ -7,4 +7,3 @@ __pycache__/
 # Exclude database directories
 database/
 
-cdsfasf/

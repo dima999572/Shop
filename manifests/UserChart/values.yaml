@@ -1,1 +1,10 @@
-namespace: "user-postgres"
+namespace: "user-app"
+
+image:
+  repository: "dima999572/frontend-user-service"
+  tags: "latest"
+
+ports:
+  containerPort: 5001
+  port: 5001
+  targetPort: 5001

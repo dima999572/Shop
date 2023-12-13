@@ -1,8 +1,13 @@
-FROM python:3.11.5
-COPY requirements.txt /frontendapp/requirements.txt
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y curl dnsutils
+
 WORKDIR /frontendapp
-RUN pip install -r requirements.txt
-COPY . /frontendapp
-ENTRYPOINT [ "python" ]
-CMD [ "app.py" ]
+
+COPY . .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD [ "python", "app.py" ]
+
 EXPOSE 5000

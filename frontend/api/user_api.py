@@ -18,7 +18,7 @@ class UserClient:
         if response:
             api_key = response.json().get('api_key')
         return api_key
-    
+
 
     @staticmethod
     def get_user():
@@ -29,8 +29,8 @@ class UserClient:
         url = f'{USER_API_URL}/api/user'
 
         response = requests.get(url, headers=headers)
-	return response.json()
-    
+        return response.json()
+
 
     @staticmethod
     def create_user(form):
@@ -44,8 +44,8 @@ class UserClient:
         response = requests.post(url, data=payload)
         if response:
             user = response.json()
-	return user
-    
+        return user
+
 
     @staticmethod
     def user_exists(username):

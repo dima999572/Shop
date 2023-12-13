@@ -1,7 +1,4 @@
-namespace: "order-postgres"
-
-image:
-  tag: "16.0"
+namespace: "order-app"
 
 service:
   port: "5432"

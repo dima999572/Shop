@@ -8,7 +8,7 @@ volumes:
 
 services:
   user-service:
-    container_name: user-service-c
+    container_name: dima999572/frontend-user-service
     build:
       context: ../user
     ports:
@@ -18,7 +18,7 @@ services:
     restart: always
 
   book-service:
-    container_name: book-service-c
+    container_name: dima999572/frontend-book-service
     build:
       context: ../book
     ports:
@@ -28,7 +28,7 @@ services:
     restart: always
 
   order-service:
-    container_name: order-service-c
+    container_name: dima999572/frontend-order-service
     build:
       context: ../order
     ports:
@@ -38,7 +38,7 @@ services:
     restart: always
 
   frontend-service:
-    container_name: frontend-service-c
+    container_name: frontend-service
     build:
       context: ../frontend
     ports:

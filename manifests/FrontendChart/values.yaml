@@ -1,0 +1,12 @@
+namespace: "frontend-shop"
+
+image:
+  repository: "dima999572/frontend-service"
+  tags: "latest"
+
+
+ports:
+  containerPort: "5000"
+  port: "5000"
+  targetPort: "5000"
+  

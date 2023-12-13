@@ -4,6 +4,7 @@ from api.book_client import BookClient
 from api.user_api import UserClient
 from api.order_client import OrderClient
 import forms
+import logging
 
 
 blueprint = Blueprint('frontend', __name__)
@@ -63,7 +64,6 @@ def login():
                 session['user'] = user['result']
 
                 order = OrderClient.get_orders()
-                print(f"------------------ORDER: {order}")
                 if order.get('response'):
                     session['order'] = order['response']
 
@@ -73,7 +73,6 @@ def login():
                 flash('Cannot Login')
         else:
             flash('Cannot Login')
-
     return render_template('login.html', form=form)
     
 

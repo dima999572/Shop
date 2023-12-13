@@ -1,1 +1,10 @@
-namespace: "order-postgres"
+namespace: "order-app"
+
+image:
+  repository: "dima999572/frontend-order-service"
+  tag: "latest"
+
+ports:
+  containerPort: 5003
+  port: 5003
+  targetPort: 5003

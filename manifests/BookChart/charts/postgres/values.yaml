@@ -1,7 +1,4 @@
-namespace: "book-postgres"
-
-image:
-  tag: "16.0"
+namespace: "book-app"
 
 service:
   port: "5432"

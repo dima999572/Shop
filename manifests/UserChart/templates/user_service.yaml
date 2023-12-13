@@ -1,16 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
+  name: user-service
   namespace: {{ .Values.namespace }}
   labels:
-    app: postgres-app
+    app: user-api
 spec:
   selector:
-    app: postgres-app
+    app: user-api
   ports:
-  - name: postgres-service
+  - name: user-service
     port: {{ .Values.ports.port }}
     targetPort: {{ .Values.ports.targetPort }}
   clusterIP: None
-

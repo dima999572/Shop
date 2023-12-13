@@ -1,16 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
+  name: frontend-service
   namespace: {{ .Values.namespace }}
   labels:
-    app: postgres-app
+    app: frontend-api
 spec:
   selector:
-    app: postgres-app
+    app: frontend-api
   ports:
-  - name: postgres-service
+  - name: frontend-service
     port: {{ .Values.ports.port }}
     targetPort: {{ .Values.ports.targetPort }}
-  clusterIP: None
-
+  type: NodePort

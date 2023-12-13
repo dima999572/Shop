@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: order-deployment
   namespace: {{ .Values.namespace }}
-  labels:
-    app: order-api
 spec:
   replicas: 1
   selector:
@@ -27,7 +25,7 @@ spec:
             done
             exit 1
         - name: db-migrate
-          image: dima999572/frontend-order-service
+          image: {{ .Values.image.repository }}
           command: 
             - "/bin/bash"
             - "-c"
@@ -47,6 +45,6 @@ spec:
               flask db upgrade
       containers:
         - name: order-api
-          image: dima999572/frontend-order-service
+          image: {{ .Values.image.repository }}
           ports:
-            - containerPort: 5003
+            - containerPort: {{ .Values.ports.containerPort }}
