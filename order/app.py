@@ -7,7 +7,13 @@ from routes import order_blueprint
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dima999572'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgresadmin:admin123@postgres-service:5432/postgresdb'
+if os.environ.get('FLASK_ENV') == 'development':
+    db_relative_path = os.path.join(os.getcwd(), 'database', 'order.db')
+    print(db_relative_path)
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_relative_path}'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgresadmin:admin123@postgres-service:5432/postgresdb'
+
 
 init_app(app)
 app.register_blueprint(order_blueprint)

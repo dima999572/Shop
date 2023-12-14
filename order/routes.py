@@ -1,12 +1,15 @@
 from flask import Blueprint, request, jsonify, make_response
 import requests
+import os
 from models import db, Order, OrderItem
 
 
 order_blueprint = Blueprint('order_api_routes', __name__, url_prefix='/api/order')
 
-USER_API_URL = 'http://user-service.user-app:5001/api/user'
-
+if os.environ.get('FLASK_ENV') == 'development':
+    USER_API_URL = 'http://0.0.0.0:5001/api/user'
+else:
+    USER_API_URL = 'http://user-service.user-app:5001/api/user'
 
 def get_user(api_key):
     headers = {
